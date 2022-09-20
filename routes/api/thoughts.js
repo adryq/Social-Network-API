@@ -1,34 +1,34 @@
 const router = require('express').Router();
 
-// Set up GET all and POST 
-router
-  .route('/')
-  .get()
-  .post();
+const {
+  getAllThoughts,
+  getThoughtById,
+  createThought,
+  updateThought,
+  deleteThought,
+  addReaction,
+  deleteReaction,
+} = require('../../controllers/thoughts');
 
-// Set up GET one, PUT, and DELETE 
-router
-  .route('/:id')
-  .get()
-  .put()
-  .delete();
-
-module.exports = router;
 
 // /api/thoughts
+router
+  .route('/')
+  .get(getAllThoughts)
+  .post(createThought);
 
-// GET to get all thoughts
+// /api/thoughts/:id
+router
+  .route('/:thoughtId')
+  .get(getThoughtById)
+  .put(updateThought)
+  .delete(deleteThought);
 
-// GET to get a single thought by its _id
+  
+router
+  .route('/:thoughtId/reactions') 
+  .post(addReaction)
+  .delete(deleteReaction) 
 
-// POST to create a new thought (don't forget to push the created thought's _id to the associated user's thoughts array field)
 
-// example data
-// {
-//   "thoughtText": "Here's a cool thought...",
-//   "username": "lernantino",
-//   "userId": "5edff358a0fcb779aa7b118b"
-// }
-// PUT to update a thought by its _id
-
-// DELETE to remove a thought by its _id
+module.exports = router;
